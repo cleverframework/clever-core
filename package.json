@@ -1,0 +1,28 @@
+{
+  "name": "clever-core",
+  "description": "Clever-core is a core package of the CLEVER project and is used primarily to manage packages for extending functionality.",
+  "version": "0.0.1",
+  "private": false,
+  "author": "Jacopo Daeli <jacopo.daeli@gmail.com>",
+  "contributors": "https://github.com/imperodesign/clever-core/graphs/contributors",
+  "clever": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/impero/clever.git"
+  },
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.3.x"
+  },
+  "scripts": {
+    "start": "",
+    "postinstall": ""
+  },
+  "dependencies": {
+    "jade": "^1.9.2",
+    "lazy-dependable": "^0.2.0",
+    "lodash": "^3.5.0",
+    "q": "^1.2.0"
+  },
+  "devDependencies": {}
+}
