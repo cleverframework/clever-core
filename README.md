@@ -3,7 +3,7 @@
 Clever-core is a core package of the CLEVER project and is used primarily to manage packages for extending functionality.
 
 ## The repository contains
-* Core functionality for managing mean packages.
+* Core functionality for managing CLEVER packages.
 
 ## Basic Usage
 
