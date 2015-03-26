@@ -1,7 +1,7 @@
 {
-  "name": "system",
+  "name": "carpediem",
   "version": "0.0.1",
-  "description": "Base system package",
+  "description": "Basic example package",
   "author": {
     "name": "Jacopo Daeli <jacopo.daeli@gmail.com>"
   },
