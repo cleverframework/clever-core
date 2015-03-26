@@ -7,5 +7,7 @@ Clever-core is a core package of the CLEVER project and is used primarily to man
 
 ## Basic Usage
 
-  Install Package:
-    $ npm install clever-core
+Install Package:
+```
+$ npm install clever-core
+```
