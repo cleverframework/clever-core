@@ -7,13 +7,9 @@ let Package = cleverCore.Package;
 var ExamplePackage = new Package('example');
 
 // All CLEVER packages require registration
-ExamplePackage.register(function(app, database, passport) {
+ExamplePackage.register(function(app, database) {
 
-  cleverCore.register('test', function(defaultconfig) {
-    console.log('test -> defaultconfig');
-  });
-
-  // ExamplePackage.routes(app, auth, database, passport);
+  ExamplePackage.routes(app, database);
 
   return ExamplePackage;
 
