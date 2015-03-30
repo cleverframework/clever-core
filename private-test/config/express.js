@@ -26,11 +26,10 @@ module.exports = function(app, db) {
     level: 9
   }));
 
-  // Enable compression on assets
-  app.use('/public', express.static(`${config.root}/assets`));
+  // assign the template engine to .html files
+  // app.engine('.html', require('jade').__express);
 
   // View engine setup
-  app.set('views', `${config.root}/packages`);
   app.set('view engine', config.templateEngine);
 
   // Connect flash for flash messages
