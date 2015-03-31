@@ -1,6 +1,6 @@
 'use strict';
 
-let cleverCore = require('../../../../index');
+let cleverCore = require('../../../index');
 let Package = cleverCore.Package;
 
 //Defining the Package

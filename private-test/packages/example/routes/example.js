@@ -3,8 +3,11 @@
 // Dependencies
 let router = require('express').Router();
 
+// Require CleverCore
+let CleverCore = require('../../../../index');
+
 // Load config
-let config = require('../../../../../index').loadConfig();
+let config = CleverCore.loadConfig();
 
 // Load controller
 let exampleCtrl = require('../controllers/example');
@@ -14,6 +17,6 @@ module.exports = function(ExamplePackage, app, database) {
 
   router.get('/', exampleCtrl.index.bind(null, ExamplePackage));
 
-  return router;
+  return new CleverCore.CleverRoute(router, false, true);
 
 };

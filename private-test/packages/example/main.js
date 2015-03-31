@@ -1,9 +1,9 @@
 'use strict';
 
-let cleverCore = require('../../../../index');
+let cleverCore = require('../../../index');
 let Package = cleverCore.Package;
 
-//Defining the Package
+// Defining the Package
 var ExamplePackage = new Package('example');
 
 // All CLEVER packages require registration
