@@ -6,6 +6,12 @@
   "author": "Jacopo Daeli <jacopo.daeli@gmail.com>",
   "contributors": "https://github.com/imperodesign/clever-core/graphs/contributors",
   "clever": "0.0.1",
+  "keywords": [
+    "clever",
+    "clever-core",
+    "clever-cli"
+  ],
+  "main": "index",
   "repository": {
     "type": "git",
     "url": "https://github.com/imperodesign/clever-core.git"
@@ -39,5 +45,6 @@
   "devDependencies": {
     "chai": "^2.1.2",
     "mocha-6to5": "^1.0.0"
-  }
+  },
+  "license": "MIT"
 }
