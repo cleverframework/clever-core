@@ -8,7 +8,7 @@
   "clever": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "https://github.com/impero/clever.git"
+    "url": "https://github.com/imperodesign/clever-core.git"
   },
   "engines": {
     "node": "0.10.x",
