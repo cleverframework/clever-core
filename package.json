@@ -1,7 +1,7 @@
 {
   "name": "clever-core",
   "description": "Clever-core is a core package of the CLEVER project and is used primarily to manage packages for extending functionality.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": false,
   "author": "Jacopo Daeli <jacopo.daeli@gmail.com>",
   "contributors": "https://github.com/imperodesign/clever-core/graphs/contributors",
