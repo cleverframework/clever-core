@@ -17,6 +17,6 @@ module.exports = function(ExamplePackage, app, database) {
 
   router.get('/', exampleCtrl.index.bind(null, ExamplePackage));
 
-  return new CleverCore.CleverRoute(router, false, true);
+  return new CleverCore.CleverRoute(router, 'site', true);
 
 };
