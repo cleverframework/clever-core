@@ -1,7 +1,7 @@
 {
   "name": "clever-core",
   "description": "Clever-core is a core package of the CLEVER project and is used primarily to manage packages for extending functionality.",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "private": false,
   "author": "Jacopo Daeli <jacopo.daeli@gmail.com>",
   "contributors": "https://github.com/imperodesign/clever-core/graphs/contributors",
@@ -38,7 +38,7 @@
     "lazy-dependable": "^0.2.0",
     "lodash": "^3.5.0",
     "method-override": "^2.3.2",
-    "mongoose": "3.8.25",
+    "mongoose": "4.0.3",
     "passport": "^0.2.1",
     "q": "^1.2.0"
   },
