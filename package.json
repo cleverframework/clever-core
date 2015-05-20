@@ -1,7 +1,7 @@
 {
   "name": "clever-core",
   "description": "Clever-core is a core package of the CLEVER project and is used primarily to manage packages for extending functionality.",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "private": false,
   "author": "Jacopo Daeli <jacopo.daeli@gmail.com>",
   "contributors": "https://github.com/imperodesign/clever-core/graphs/contributors",
@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "chai": "^2.1.2",
-    "mocha-6to5": "^1.0.0"
+    "mocha": "^2.2.5"
   },
   "license": "MIT"
 }
