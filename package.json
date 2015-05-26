@@ -1,7 +1,7 @@
 {
   "name": "clever-core",
   "description": "Clever-core is a core package of the CLEVER project and is used primarily to manage packages for extending functionality.",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "private": false,
   "author": "Jacopo Daeli <jacopo.daeli@gmail.com>",
   "contributors": "https://github.com/imperodesign/clever-core/graphs/contributors",
@@ -17,8 +17,8 @@
     "url": "https://github.com/imperodesign/clever-core.git"
   },
   "engines": {
-    "node": "0.10.x",
-    "npm": "1.3.x"
+    "iojs": "2.0.2",
+    "npm": "2.9.0"
   },
   "scripts": {
     "pretest": "npm install",
