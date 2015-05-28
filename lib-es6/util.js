@@ -33,57 +33,6 @@ class Util {
     });
   }
 
-  // flatten json
-  static jsonFlatten(data, options) {
-    const result = {};
-
-    function layerRoot(root, layer) {
-      return (root ? root + '.' : '') + layer;
-    }
-
-    function flatten(config, root) {
-      for (let index in config) {
-        if (config[index] && !config[index].value && typeof(config[index]) === 'object') {
-          flatten(config[index], layerRoot(root, index));
-        } else {
-          result[layerRoot(root, index)] = {
-            'value': config[index]
-          };
-
-          if (options['default']) {
-            result[layerRoot(root, index)]['default'] = config[index];
-          }
-        }
-      }
-    }
-
-    flatten(data, '');
-
-    return result;
-  }
-
-  // unflatten json
-  static jsonUnflatten(data) {
-    if (Object(data) !== data || Array.isArray(data)) return data
-
-    const regex = /\.?([^.\[\]]+)|\[(\d+)\]/g;
-    const resultholder = {};
-
-    for (let p in data) {
-      let cur = resultholder;
-      let prop = '';
-
-      while ((let m = regex.exec(p))) {
-        cur = cur[prop] || (cur[prop] = (m[2] ? [] : {}));
-        prop = m[2] || m[1];
-      }
-
-      cur[prop] = data[p];
-    }
-
-    return resultholder[''] || resultholder;
-  }
-
   // inherit objs
   static inherit(a, b) {
     a.prototype = Object.create(b.prototype, {
