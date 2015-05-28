@@ -34,11 +34,9 @@ class CleverCore extends Container {
       let defaultConfig = self.config;
       mongoose.set('debug', defaultConfig.mongoose && defaultConfig.mongoose.debug);
       const database = mongoose.connect(defaultConfig.db || '', defaultConfig.dbOptions || {}, function(err) {
-        if (err) cb(err);
+        if (err) return cb(err);
         // Register database dependency
-        self.register('database', {
-          connection:database
-        });
+        self.register('database', database);
         cb();
       });
     }
