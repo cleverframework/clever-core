@@ -1,0 +1,20 @@
+{
+  "name": "users",
+  "version": "0.0.1",
+  "authors": [
+    "JacopoDaeli <jacopo.daeli@gmail.com>"
+  ],
+  "description": "Users package",
+  "main": "main.js",
+  "moduleType": [
+    "es6",
+    "node"
+  ],
+  "keywords": [
+    "clever",
+    "clever-core",
+    "clever-cli",
+    "users"
+  ],
+  "license": "MIT"
+}

@@ -1,0 +1,35 @@
+extends ../layout/admin
+
+block content
+  h1.page-header
+    | Settings: 
+    span(style="color: #666") #{settingToShow.key} [Details]
+    div.row.placeholders
+  form#editSetting.col-sm-8(autocomplete="off")
+    .form-group
+        label(for="inputKey") Key
+        |     
+        input#inputKey.form-control(type="text", name="key", value="#{settingToShow.key}", placeholder="Key", disabled)
+    .form-group
+        label(for="inputValue") Value
+        |     
+        textarea#inputValue.form-control(name="value", placeholder="String or JSON object syntax", disabled) #{settingToShow.value}
+      |   
+    a.btn.btn-default(href="/admin/settings", style="margin-right: 5px;") &laquo;
+    .btn-group
+        button.btn.btn-info.dropdown-toggle(type="button", data-toggle="dropdown", aria-expanded="false")
+          | Modify 
+          span.caret
+        |   
+        ul.dropdown-menu(role="menu")
+          li
+            a(href="/admin/settings/#{settingToShow._id}/edit") Edit
+          | 
+          li
+            a.deleteSetting(href="#", data-id="#{settingToShow._id}") Delete
+
+block appendjs
+  script.
+    window.csrf = '#{csrfToken}';
+    window.urlreload = '/admin/settings';
+  script(src="/public/system/admin/index.js")

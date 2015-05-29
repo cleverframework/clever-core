@@ -1,0 +1,97 @@
+extends ../../../system/views/admin/layout/admin
+
+block content
+    
+  h1.page-header
+    | Users: 
+    span(style="color: #666") List
+    div.row.placeholders
+  
+  table.table.table-hover
+    thead
+      tr
+        th
+          | Firstname
+        th
+          | Lastname
+        th
+          | Email
+        th
+          | Roles
+        th
+          | Provider
+        th
+          | 
+    tbody
+      each user in users
+        tr
+          td
+            a(href="/admin/users/#{user._id}")
+              | #{user.firstName}
+          td
+            | #{user.lastName}
+          td
+            | #{user.email}
+          td
+            each role, index in user.roles
+              if index > 0
+                | , 
+              | #{role}
+          td
+            | #{user.provider}
+          td
+            .btn-group
+                button.btn.btn-info.dropdown-toggle(type="button", data-toggle="dropdown", aria-expanded="false")
+                  | Modify 
+                  span.caret
+                |   
+                ul.dropdown-menu(role="menu")
+                  li
+                    a(href="/admin/users/#{user._id}/edit") Edit
+                  | 
+                  li
+                    a(href="/admin/users/#{user._id}/edit/change-password") Change Password
+                  |     
+                  li
+                    a.deleteUser(href="#", data-id="#{user._id}") Delete
+
+    tfoot
+      tr
+        th
+          | Firstname
+        th
+          | Lastname
+        th
+          | Email
+        th
+          | Roles
+        th
+          | Provider
+        th 
+          | 
+          
+  a(href="/admin/users/create").btn.btn-primary Create
+  
+  - var nPages = Math.ceil(nUsers / 10);
+  - var i = 0;
+  
+  if nPages > 0
+    nav.pull-right
+      ul.pagination
+        li(class=(activePage == 0) ? 'disabled' : '')
+          a(href="/admin/users/#{activePage-1}", aria-label="Previous")
+            span(aria-hidden="true") &laquo;
+            
+        while i < nPages   
+          li(class=(i == activePage) ? 'active' : '')
+            a(href="/admin/users?page=#{i}")
+              | #{++i} 
+                
+        li(class=(activePage < nPages-1) ? '' : 'disabled')
+          a(href="/admin/users/#{activePage+1}", aria-label="Next")
+            span(aria-hidden="true") &raquo;
+              
+block appendjs
+  script.
+    window.csrf = '#{csrfToken}';
+  script(src="/public/users/admin/index.js")

@@ -1,0 +1,28 @@
+{
+  "name": "system",
+  "version": "0.0.1",
+  "description": "System package",
+  "author": {
+    "name": "Jacopo Daeli <jacopo.daeli@gmail.com>"
+  },
+  "clever": "0.0.x",
+  "dependencies": {},
+  "license": "MIT",
+  "devDependencies": {
+    "babelify": "^6.0.2",
+    "browserify": "^9.0.7",
+    "gulp": "^3.8.11",
+    "gulp-autoprefixer": "^2.1.0",
+    "gulp-clean": "^0.3.1",
+    "gulp-csso": "^1.0.0",
+    "gulp-run-sequence": "^0.3.2",
+    "gulp-sourcemaps": "^1.5.1",
+    "gulp-stylus": "^2.0.1",
+    "gulp-uglify": "^1.1.0",
+    "require-dir": "^0.3.0",
+    "rupture": "^0.6.1",
+    "stylus-mixins": "^0.2.1",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}

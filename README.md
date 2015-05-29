@@ -11,3 +11,7 @@ Install Package:
 ```
 $ npm install clever-core
 ```
+
+## IMPORTANT
+DONT'T USE THIS CODE NOW. IS BROKEN. FIXING SOON!
+USE THE `DEVELOPMENT` BRANCH.

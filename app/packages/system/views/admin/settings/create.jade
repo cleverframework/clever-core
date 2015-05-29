@@ -1,0 +1,31 @@
+extends ../layout/admin
+
+block content
+  h1.page-header
+    | Settings: 
+    span(style="color: #666") Create
+    div.row.placeholders
+  form#createSetting.col-sm-8(method="POST", action="/api/system/settings", autocomplete="off")
+    .form-group
+        label(for="inputKey") Key
+        |     
+        input#inputKey.form-control(type="text", name="key", value="", placeholder="Key")
+      |  
+    .form-group
+        label(for="inputValue") Value
+        |     
+        textarea#inputValue.form-control(name="value", placeholder="String or JSON object syntax")
+    input(type="hidden", name="_csrf", value="#{csrfToken}")
+    |   
+    a.btn.btn-default(href="/admin/settings", style="margin-right: 5px;") Cancel
+    button#createSettingBtn.btn.btn-success(type="submit") Create
+    br
+    br
+    div#createSettingError(class="alert alert-danger hidden", role="alert")
+      b
+        |	Ops! 
+      span.message
+        | No Errors
+
+block appendjs
+  script(src="/public/system/admin/index.js")

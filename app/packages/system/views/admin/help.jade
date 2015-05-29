@@ -1,0 +1,30 @@
+extends ./layout/admin
+
+block content
+  h1.page-header(style="border: 0px")
+    | System: 
+    span(style="color: #666") Help
+    .row.placeholders
+  div(role='tabpanel')
+    // Nav tabs
+    ul.nav.nav-tabs(role='tablist')
+      li.active(role='presentation')
+        a(href='#home', aria-controls='good', role='tab', data-toggle='tab') Good
+      |     
+      li(role='presentation')
+        a(href='#profile', aria-controls='looking', role='tab', data-toggle='tab') Looking
+      |     
+      li(role='presentation')
+        a(href='#messages', aria-controls='and', role='tab', data-toggle='tab') &
+      |     
+      li(role='presentation')
+        a(href='#settings', aria-controls='clever', role='tab', data-toggle='tab') Clever
+    // Tab panes
+    .tab-content
+      #good.tab-pane.active(role='tabpanel') 
+        |     
+      #looking.tab-pane(role='tabpanel') 
+        |     
+      #and.tab-pane(role='tabpanel') 
+        |     
+      #clever.tab-pane(role='tabpanel') .

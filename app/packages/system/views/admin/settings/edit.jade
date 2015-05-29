@@ -1,0 +1,33 @@
+extends ../layout/admin
+
+block content
+  h1.page-header
+    | Settings: 
+    span(style="color: #666") #{settingToEdit.key} [Edit]
+    div.row.placeholders
+  form#editSetting.col-sm-8(method="PUT", action="/api/system/settings/#{settingToEdit._id}", autocomplete="off")
+    .form-group
+        label(for="inputKey") Key
+        |     
+        input#inputKey.form-control(type="text", name="key", value="#{settingToEdit.key}", placeholder="Key")
+      |  
+    .form-group
+        label(for="inputValue") Value
+        |     
+        textarea#inputValue.form-control(name="value", placeholder="String or JSON object syntax") #{settingToEdit.value}
+    input(type="hidden", name="_csrf", value="#{csrfToken}")
+    |   
+    a.btn.btn-default(href="/admin/settings", style="margin-right: 5px;") Cancel
+    button#editSettingBtn.btn.btn-success(type="submit") Save
+    br
+    br
+    div#editSettingError(class="alert alert-danger hidden", role="alert")
+      b
+        |	Ops! 
+      span.message
+        | No Errors
+
+
+
+block appendjs
+  script(src="/public/system/admin/index.js")

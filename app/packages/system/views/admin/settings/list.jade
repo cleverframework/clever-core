@@ -1,0 +1,73 @@
+extends ../layout/admin
+
+block content
+    
+  h1.page-header
+    | Settings: 
+    span(style="color: #666") List
+    div.row.placeholders
+  
+  table.table.table-hover
+    thead
+      tr
+        th
+          | Key
+        th
+          | Value
+        th
+          | 
+    tbody
+      each setting in settings
+        tr
+          td
+            a(href="/admin/settings/#{setting._id}")
+              | #{setting.key}
+          td
+            | #{setting.value}
+          td
+            .btn-group
+                button.btn.btn-info.dropdown-toggle(type="button", data-toggle="dropdown", aria-expanded="false")
+                  | Modify 
+                  span.caret
+                |   
+                ul.dropdown-menu(role="menu")
+                  li
+                    a(href="/admin/settings/#{setting._id}/edit") Edit
+                  |     
+                  li
+                    a.deleteSetting(href="#", data-id="#{setting._id}") Delete
+
+    tfoot
+      tr
+        th
+          | Key
+        th
+          | Value
+        th 
+          | 
+          
+  a(href="/admin/settings/create").btn.btn-primary Create
+  
+  - var nPages = Math.ceil(nSettings / 10);
+  - var i = 0;
+  
+  if nPages > 0
+    nav.pull-right
+      ul.pagination
+        li(class=(activePage == 0) ? 'disabled' : '')
+          a(href="/admin/settings/#{activePage-1}", aria-label="Previous")
+            span(aria-hidden="true") &laquo;
+            
+        while i < nPages   
+          li(class=(i == activePage) ? 'active' : '')
+            a(href="/admin/settings?page=#{i}")
+              | #{++i} 
+                
+        li(class=(activePage < nPages-1) ? '' : 'disabled')
+          a(href="/admin/settings/#{activePage+1}", aria-label="Next")
+            span(aria-hidden="true") &raquo;
+              
+block appendjs
+  script.
+    window.csrf = '#{csrfToken}';
+  script(src="/public/system/admin/index.js")
