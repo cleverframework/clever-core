@@ -5,22 +5,11 @@ const Q = require('q');
 const _ = require('lodash');
 let Util = require('./util');
 
-class Settings {
-
-  static load() {
-
-    const defer = Q.defer();
-    const Setting = require('./models/setting');
-
-    Setting.find({}, function(err, settings) {
-      if(err) return defer.reject(err);
-      defer.resolve(settings);
-    });
-
-    return defer.promise;
-  }
+class Setting {
 
   static init(callback) {
+
+    const SettingModel = require('./models/setting');
 
     function done(params) {
       const settings = {};
@@ -30,7 +19,7 @@ class Settings {
       callback(null, settings);
     }
 
-    Settings.load()
+    SettingModel.getSettings()
       .then(done)
       .catch(function(err) {
         callback(err);
@@ -40,4 +29,4 @@ class Settings {
 
 }
 
-module.exports = Settings;
+module.exports = Setting;

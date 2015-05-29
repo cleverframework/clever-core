@@ -5,9 +5,9 @@ const _ = require('lodash');
 const Container = require('lazy-dependable').Container;
 const async = require('async');
 const Q = require('q');
-const Platform = require('platform');
+const Platform = require('./platform');
 const Config = require('./config');
-const Settings = require('./settings')
+const Setting = require('./setting')
 const Schema = mongoose.Schema;
 
 class CleverCore extends Container {
@@ -45,7 +45,7 @@ class CleverCore extends Container {
 
     function loadSettings(cb) {
       console.log('Loading settings...');
-      Settings.init(function(err, settings) {
+      Setting.init(function(err, settings) {
         if(err) return cb(err);
         self.settings = settings;
         console.log(settings)

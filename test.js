@@ -1,5 +1,9 @@
 'use strict';
 
+const CleverCore = require('./lib-es6/clever-core');
+
+const c = CleverCore.getInstance();
+
 const Search = require('./lib-es6/search');
 const searchSourceForFindPackages = require('./lib/search');
 

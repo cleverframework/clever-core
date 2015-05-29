@@ -11,8 +11,8 @@ class Search {
   static start(pkgs, disabled, source) {
 
     const basePath = process.cwd().indexOf('app') > -1 ? process.cwd() : `${process.cwd()}/app`;
-
     const dirPath = path.join(basePath, source);
+  
     const defer = Q.defer();
 
     function forEachFile(file, cb) {
