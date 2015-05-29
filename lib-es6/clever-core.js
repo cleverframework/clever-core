@@ -5,7 +5,8 @@ const _ = require('lodash');
 const Container = require('lazy-dependable').Container;
 const async = require('async');
 const Q = require('q');
-const Config = require('./config')
+const Platform = require('platform');
+const Config = require('./config');
 const Settings = require('./settings')
 const Schema = mongoose.Schema;
 
@@ -18,6 +19,7 @@ class CleverCore extends Container {
     this.version = require('../package').version;
     this.active = false;
     this.options = null;
+    this.platform = Platform;
 
     const self = this;
 
