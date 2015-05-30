@@ -6,59 +6,53 @@ const Schema = mongoose.Schema;
 const Q = require('q');
 const _ = require('lodash');
 
-
-// Helper
-class Helper {
-
-  // Mongoose Error Handling
-  static hasErrors(err) {
-    if (err) {
-      const modelErrors = [];
-      switch (err.code) {
-        case 11000: {};
-        case 11001: {
-          modelErrors.push({
-            msg: 'Setting key is already in-use',
-            param: 'key'
-          });
-          break;
-        }
-        default: {
-          if (err.errors) {
-            for (let x in err.errors) {
-              modelErrors.push({
-                param: x,
-                msg: err.errors[x].message,
-                value: err.errors[x].value
-              });
-            }
+// Mongoose Error Handling
+function hasErrors(err) {
+  if (err) {
+    const modelErrors = [];
+    switch (err.code) {
+      case 11000: {};
+      case 11001: {
+        modelErrors.push({
+          msg: 'Setting key is already in-use',
+          param: 'key'
+        });
+        break;
+      }
+      default: {
+        if (err.errors) {
+          for (let x in err.errors) {
+            modelErrors.push({
+              param: x,
+              msg: err.errors[x].message,
+              value: err.errors[x].value
+            });
           }
         }
       }
-      return modelErrors;
     }
-    return null;
+    return modelErrors;
   }
+  return null;
+}
 
-  static validateUniqueKey(value, callback) {
-    const Setting = mongoose.model('Setting')
-    Setting.find({
-      $and: [{
-        key: value
-      }, {
-        _id: {
-          $ne: this._id
-        }
-      }]
-    }, function(err, setting) {
-      callback(err || setting.length === 0);
-    })
-  }
+function validateUniqueKey(value, callback) {
+  const Setting = mongoose.model('Setting')
+  Setting.find({
+    $and: [{
+      key: value
+    }, {
+      _id: {
+        $ne: this._id
+      }
+    }]
+  }, function(err, setting) {
+    callback(err || setting.length === 0);
+  })
+}
 
-  static escapeProperty(value) {
-    return _.escape(value);
-  }
-
+function escapeProperty(value) {
+  return _.escape(value);
 }
 
 
@@ -135,7 +129,7 @@ const settingSchemaStatics = {
       });
 
       setting.save(function(err) {
-        const errors = Helper.hasErrors(err)
+        const errors = hasErrors(err)
         if(errors) return defer.reject(errors)
         defer.resolve(setting)
       });
@@ -175,7 +169,7 @@ const settingSchemaStatics = {
     try {
       const setting = new Setting(settingParams)
       setting.save(function(err) {
-        const errors = Helper.hasErrors(err);
+        const errors = hasErrors(err);
         if(errors) return defer.reject(errors);
         defer.resolve(setting);
       });
@@ -208,7 +202,7 @@ class SettingSchema extends Schema {
         type: String,
         required: true,
         unique: true,
-        validate: [Helper.validateUniqueKey, 'Setting key is already in-use']
+        validate: [validateUniqueKey, 'Setting key is already in-use']
       },
       val: {}
     });
