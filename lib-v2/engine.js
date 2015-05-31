@@ -80,7 +80,10 @@ class ServerEngine {
     // Express/Mongo session storage
     this.app.use(session({
       secret: config.sessionSecret,
-      store: new MongoStore({ url: 'mongodb://localhost/test-app' }),
+      store: new MongoStore({
+        mongooseConnection: this.db.connection,
+        collection: config.sessionCollection
+      }),
       cookie: config.sessionCookie,
       name: config.sessionName,
       resave: true,

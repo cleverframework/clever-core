@@ -28,7 +28,7 @@ function discoverPackages(deferred) {
 
       // Exports registered packages via JSON API
       app.get('/_getPackages', function getPackagesHandler(req, res, next) {
-        res.json(cleverCoreInstance.exportable_packages_list);
+        res.json(cleverCoreInstance.exportablePkgList);
       });
 
       if(!pkgList.unresolved.empty()) {
