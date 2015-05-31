@@ -98,8 +98,6 @@ class ServerEngine {
 
   beginBootstrap(cleverCoreInstance, database) {
 
-    console.log(11)
-
     this.clever = cleverCoreInstance;
     this.db = database;
     let config = cleverCoreInstance.config;
@@ -115,8 +113,6 @@ class ServerEngine {
     };
 
     this.app = app;
-
-    console.log(22)
 
     // Register app dependency
     cleverCoreInstance.register('app', this.initApp.bind(this));
@@ -140,8 +136,6 @@ class ServerEngine {
 
     cleverCoreInstance.name = config.app.name;
     cleverCoreInstance.app = app;
-
-    console.log(33)
 
   }
 

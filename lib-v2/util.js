@@ -47,10 +47,8 @@ function lowerCaseFirstLetter(string) {
   return string.charAt(0).toLowerCase() + string.slice(1);
 }
 
-function packageHasName(targetname, pkg) {
-  if(targetname===pkg.name) {
-    return true;
-  }
+function packageHasName(targetname, dep){
+  return targetname===dep.name;
 }
 
 function escapeProperty(value) {

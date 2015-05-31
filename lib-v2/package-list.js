@@ -5,6 +5,8 @@ const DependableList = require('dependable-list');
 const Dependable = DependableList.dependableConstructor();
 const util = require('./util');
 
+
+
 class PackageListElement extends Dependable {
   constructor(name, version, source) {
     super();
@@ -27,7 +29,6 @@ class PackageListElement extends Dependable {
   }
 
   activate() {
-    console.log(this.name)
     const req = require(this.path('main.js'));
     if(req && 'function' === req.init){
       req.init(this);
@@ -47,12 +48,6 @@ class PackageList extends DependableList {
   packageNamed(name) {
     return this.findOne(util.packageHasName.bind(null, name));
   }
-
-  add(pkg) {
-    console.log('Adding ' + pkg.name);
-    super.add(pkg);
-  }
-
 }
 
 module.exports = PackageList;

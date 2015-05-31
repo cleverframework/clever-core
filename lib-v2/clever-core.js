@@ -3,6 +3,7 @@
 const Q = require('q');
 const _ = require('lodash');
 const Container = require('lazy-dependable').Container;
+const util = require('./util')
 
 class CleverCore extends Container {
   constructor() {
@@ -34,9 +35,11 @@ class CleverCore extends Container {
 
   }
 
-  serve(options, cb) {
+  packageEnabled(name) {
+    return this.packageList.traverseConditionally(util.packageHasName.bind(null,name)) || false;
+  }
 
-    console.log('serving')
+  serve(options, cb) {
 
     if(typeof options === 'function') {
       cb = options;

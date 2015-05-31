@@ -14,7 +14,7 @@ function discoverPackages(deferred) {
 
   const cleverCoreInstance = this;
 
-  this.resolve('config', function(config) {
+  this.resolve('config', 'app', function(config, app) {
 
     const disabled = _.toArray(config.disabledPackages);
     const pkgList = new PackageList();
@@ -25,6 +25,11 @@ function discoverPackages(deferred) {
     require('./clever-package').call(cleverCoreInstance);
 
     function doneWithSuccess() {
+
+      // Exports registered packages via JSON API
+      app.get('/_getPackages', function getPackagesHandler(req, res, next) {
+        res.json(cleverCoreInstance.exportable_packages_list);
+      });
 
       if(!pkgList.unresolved.empty()) {
         throw new Error(`Packages with unresolved dependencies: ${pkgList.listOfUnresolved()}`);
@@ -37,11 +42,9 @@ function discoverPackages(deferred) {
           const defer = Q.defer();
           defersActivator.push(defer);
           loadedPackage.activate();
-          console.log('amazing')
 
           // Not sure why :-)
-          cleverCoreInstance.resolve(loadedPackage.name, function (e) {
-            console.log('Resolving ' + loadedPackage.name)
+          cleverCoreInstance.resolve(loadedPackage.name, function (resolvedPkg) {
             defer.resolve();
           });
         }
@@ -50,8 +53,6 @@ function discoverPackages(deferred) {
       pkgList.traverse(packageActivator);
 
       Q.all(defersActivator).done(function() {
-
-        console.log('alll active')
 
         const defersRegistrator = [];
 
@@ -63,7 +64,6 @@ function discoverPackages(deferred) {
               name: loadedPackage.name,
               version: loadedPackage.version
             });
-            console.log('mitikkkk: ' + loadedPackage.name)
             defer.resolve(); // no async ehm ?
           }
         }
@@ -72,8 +72,6 @@ function discoverPackages(deferred) {
 
         Q.all(defersRegistrator).done(function() {
           // Get out of here
-          console.log('tooooop')
-          console.log(exportablePkgList)
           deferred.resolve();
         });
 
@@ -82,18 +80,17 @@ function discoverPackages(deferred) {
     }
 
     function doneWithErrors(err) {
-      console.log('shit')
       console.error(err);
       deferred.reject(err);
     }
 
-  /*
+    /*
     Q.all([
       search(pkgList, disabled, 'packages'),
       search(pkgList, disabled, 'packages/core'), // just in case
       search(pkgList, disabled, 'packages/contrib') // just in case
     ]).done(doneWithSuccess, doneWithErrors);
-  */
+    */
 
     search(pkgList, disabled, 'packages')
       .then(doneWithSuccess)

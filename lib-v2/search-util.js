@@ -4,8 +4,6 @@ const fs = require('fs');
 const path = require('path');
 const Q = require('q');
 
-let x = 0;
-
 function parseCleverJSON(pkgs, result) {
   if (result.fileData) {
     const json = JSON.parse(result.fileData.toString());
@@ -14,9 +12,7 @@ function parseCleverJSON(pkgs, result) {
     }
   }
 
-  if(x<2) pkgs.add(result.dependable);
-  console.log(x, pkgs)
-  x++
+  pkgs.add(result.dependable);
 }
 
 function readCleverJSON(pkgs, basePath, source, file, json) {
@@ -26,7 +22,6 @@ function readCleverJSON(pkgs, basePath, source, file, json) {
     if(err) return defer.reject(err);
     const result = {};
     result.dependable = pkgs.createPackage(json.name, json.version, source);
-    console.log('gorgeous ', json.name)
     result.fileData = fileData;
     defer.resolve(result);
   });

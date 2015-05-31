@@ -14,7 +14,6 @@ function search(pkgList, disabled, source) {
   const defer = Q.defer();
 
   function forEachFile(file, cb) {
-    console.log(file)
     serachUtil.readPackageJSON(basePath, source, file)
       .then(serachUtil.parsePackageJSON)
       .then(serachUtil.readCleverJSON.bind(null, pkgList, basePath, source, file))

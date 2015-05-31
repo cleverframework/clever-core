@@ -16,12 +16,10 @@ function requireModel(path) {
 }
 
 function attachPackageClass() {
-  console.log(1)
   const cleverCoreInstance = this;
 
   class Package {
     constructor(name) {
-      console.log(2)
 
       try {
         this.loadedPackage = cleverCoreInstance.pkgList.packageNamed(name);
@@ -32,15 +30,14 @@ function attachPackageClass() {
       if(!this.loadedPackage) {
         throw new Error(`Package with name ${name} is not loaded`);
       }
-      console.log(3)
       this.name = util.lowerCaseFirstLetter(this.loadedPackage.name);
       this.config = cleverCoreInstance.config;
       this.viewsPath = `${this.config.root}/packages/${this.name}/views`;
       this.assetsPath = `${this.config.root}/packages/${this.name}/assets/dist`;
-      console.log(4)
+
       // automatically load models
       util.walk(this.loadedPackage.path('./'), 'model', null, requireModel);
-      console.log(5)
+
       // attach clever core to pkg object
       this.CleverCore = cleverCoreInstance.getClass();
 
@@ -49,9 +46,7 @@ function attachPackageClass() {
       // server assets folder
       cleverCoreInstance.resolve('app', function(app) {
         app.use(`/public/${self.name}`, express.static(self.assetsPath));
-        console.log(99)
       });
-      console.log(6)
     }
 
     render(view, opts) {
