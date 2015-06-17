@@ -15,10 +15,12 @@ class CleverCore extends Container {
     this.exportablePkgList = null;
     this.config = null;
     this.settings = null;
+    this.menus = {};
 
     // Classes to export
     this.Package = null;
     this.CleverRoute = require('./clever-route');
+    this.Menu = require('./menu');
 
     const waiters = [];
     waiters.push(require('./clever-config').bind(this));

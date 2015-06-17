@@ -16,7 +16,20 @@ function requireModel(path) {
 }
 
 function attachPackageClass() {
+
   const cleverCoreInstance = this;
+
+  function requireRoute(args, route, app) {
+    const cleverRoute = require(route).apply(this, args);
+    let mountPoint = cleverRoute.type === 'site' ? `${cleverRoute.mountOnRoot ? `/` : ``}` : `/${cleverRoute.type}`;
+    mountPoint = cleverRoute.mountOnRoot ? mountPoint : `${mountPoint}/${this.name}`;
+
+    app.use(mountPoint,  cleverRoute.router);
+  }
+
+  function onRoute(args, route) {
+    cleverCoreInstance.resolve('app', requireRoute.bind(this, args, route));
+  }
 
   class Package {
     constructor(name) {
@@ -47,6 +60,9 @@ function attachPackageClass() {
       cleverCoreInstance.resolve('app', function(app) {
         app.use(`/public/${self.name}`, express.static(self.assetsPath));
       });
+
+      this.menus();
+
     }
 
     render(view, opts) {
@@ -55,19 +71,17 @@ function attachPackageClass() {
 
     routes() {
       const args = Array.prototype.slice.call(arguments);
-      util.walk(this.loadedPackage.path('./'), 'route', null, this.onRoute.bind(this, [this].concat(args)));
+      util.walk(this.loadedPackage.path('./'), 'route', null, onRoute.bind(this, [this].concat(args)));
     }
 
-    onRoute(args, route) {
-      cleverCoreInstance.resolve('app', this.requireRoute.bind(this, args, route));
-    }
+    menus() {
+      if(!fs.existsSync(`${this.loadedPackage.path('./')}menus.js`)) return;
 
-    requireRoute(args, route, app) {
-      const cleverRoute = require(route).apply(this, args);
-      let mountPoint = cleverRoute.type === 'site' ? `${cleverRoute.mountOnRoot ? `/` : ``}` : `/${cleverRoute.type}`;
-      mountPoint = cleverRoute.mountOnRoot ? mountPoint : `${mountPoint}/${this.name}`;
-
-      app.use(mountPoint,  cleverRoute.router);
+      const menus = require(`${this.loadedPackage.path('./')}menus.js`)
+      Object.keys(menus).forEach(function(name, index) {
+        cleverCoreInstance.register(`${name}Menu`, menus[name]);
+        cleverCoreInstance.menus[name] = menus[name];
+      });
     }
 
     register(callback) {
