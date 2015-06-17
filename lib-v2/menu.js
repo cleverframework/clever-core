@@ -4,10 +4,11 @@ const Q = require('q');
 const ptr = require('path-to-regexp');
 
 class MenuElement {
-  constructor(name, ref, order, active) {
+  constructor(name, ref, order, sub, active) {
     this.name = name || 'Untitled';
     this.ref = ref || '#';
     this.order = order !== undefined ? order : -1;
+    this.sub = sub || null; // if submenu, assign a function
     this.active = active || false;
   }
 }
@@ -20,11 +21,12 @@ class Menu {
     this.rendered = null;
   }
 
-  addElement(name, ref, order, active) {
+  addElement(name, ref, order, sub) {
     this.elements.push({
       name: name,
       ref: ref,
-      order: order
+      order: order,
+      sub: sub || null
     });
   }
 
@@ -38,16 +40,14 @@ class Menu {
     }
 
     function generateElement(el, index) {
-      const menuEl = new Menu.MenuElement(el.name, el.ref, el.order);
+      const menuEl = new Menu.MenuElement(el.name, el.ref, el.order, el.sub);
       const defer = Q.defer();
       waitersPromise.push(defer.promise);
-      if(typeof menuEl.ref === 'function') {
-        menuEl.ref(cleverCore, req, defer, menuEl);
-        defer.resolve();
-      } else {
-        menuEl.active = ptr(req.route.path).test(menuEl.ref);
-        defer.resolve();
+      if(typeof menuEl.sub === 'function') {
+        menuEl.sub(cleverCore, req, defer, menuEl);
       }
+      menuEl.active = ptr(req.route.path).test(menuEl.ref);
+      defer.resolve();
       return menuEl;
     }
 
