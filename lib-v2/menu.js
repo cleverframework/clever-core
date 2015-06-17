@@ -4,12 +4,17 @@ const Q = require('q');
 const ptr = require('path-to-regexp');
 
 class MenuElement {
-  constructor(name, ref, order, sub, active) {
+  constructor(menu, name, ref, order, sub, active) {
+    this.menu = menu || null;
     this.name = name || 'Untitled';
     this.ref = ref || '#';
     this.order = order !== undefined ? order : -1;
     this.sub = sub || null; // if submenu, assign a function
     this.active = active || false;
+  }
+
+  getMenu() {
+    return this.menu;
   }
 }
 
@@ -19,9 +24,10 @@ class Menu {
     this.elements = [];
     this.fn = null;
     this.rendered = null;
+    this.waitersPromise = null;
   }
 
-  addElement(name, ref, order, sub) {
+  addElement(name, ref, order, sub, active) {
     this.elements.push({
       name: name,
       ref: ref,
@@ -30,29 +36,35 @@ class Menu {
     });
   }
 
-  render(cleverCore, req, cb, hash) {
+  render(cleverCore, req, cb, parent) {
 
-    const waitersPromise = [];
-
-    if(!cleverCore.resolve) {
-      console.log(hash)
-      console.log(cleverCore)
-    }
+    this.waitersPromise = [];
 
     function generateElement(el, index) {
-      const menuEl = new Menu.MenuElement(el.name, el.ref, el.order, el.sub);
+      const menuEl = new Menu.MenuElement(self, el.name, el.ref, el.order, el.sub);
       const defer = Q.defer();
-      waitersPromise.push(defer.promise);
+      self.waitersPromise.push(defer.promise);
       if(typeof menuEl.sub === 'function') {
         menuEl.sub(cleverCore, req, defer, menuEl);
+      } else {
+        defer.resolve();
       }
-      menuEl.active = ptr(req.route.path).test(menuEl.ref);
-      defer.resolve();
+
+      if(ptr(req.route.path).test(menuEl.ref)) {
+        menuEl.active = true;
+        if(parent) {
+          parent.active = true;
+        }
+      }
+
+      // Attach the promise to parent menu
+      if(parent) parent.getMenu().waitersPromise.push(defer);
+
       return menuEl;
     }
 
     // Caching the rendered
-    if(this.rendered) return cb(null, this.rendered);
+    // if(this.rendered) return cb(null, this.rendered);
 
     const self = this;
 
@@ -67,7 +79,7 @@ class Menu {
 
     if(self.fn) {
       const defer = Q.defer();
-      waitersPromise.push(defer.promise);
+      self.waitersPromise.push(defer.promise);
       self.fn(cleverCore, function(err, rawElements) {
         if(err) return defer.reject(err);
         rawElements.forEach(function (el, index) {
@@ -77,7 +89,7 @@ class Menu {
       });
     }
 
-    Q.all(waitersPromise).done(function() {
+    Q.all(self.waitersPromise).done(function() {
       self.rendered.elements = fnElements;
       cb(null, self.rendered);
     }, function(err) {
@@ -85,9 +97,9 @@ class Menu {
     });
   }
 
-  deleteCache() {
-    this.rendered = null;
-  }
+  // deleteCache() {
+  //   this.rendered = null;
+  // }
 
 }
 
