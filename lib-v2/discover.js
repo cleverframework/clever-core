@@ -62,7 +62,8 @@ function discoverPackages(deferred) {
             defersRegistrator.push(defer);
             exportablePkgList.push({
               name: loadedPackage.name,
-              version: loadedPackage.version
+              version: loadedPackage.version,
+              visible: loadedPackage.visible
             });
             defer.resolve(); // no async ehm ?
           }

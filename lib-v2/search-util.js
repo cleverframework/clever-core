@@ -21,7 +21,7 @@ function readCleverJSON(pkgs, basePath, source, file, json) {
   fs.readFile(filePath, function(err, fileData) {
     if(err) return defer.reject(err);
     const result = {};
-    result.dependable = pkgs.createPackage(json.name, json.version, source);
+    result.dependable = pkgs.createPackage(json.name, json.version, json.visible, source);
     result.fileData = fileData;
     defer.resolve(result);
   });

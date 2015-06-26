@@ -8,11 +8,12 @@ const util = require('./util');
 
 
 class PackageListElement extends Dependable {
-  constructor(name, version, source) {
+  constructor(name, version, visible, source) {
     super();
     // Dependable.call(this);
     this.name = name;
     this.version = version;
+    this.visible = visible;
     this.source = source;
   }
 
@@ -21,6 +22,7 @@ class PackageListElement extends Dependable {
     this.source = null;
     this.version = null;
     this.name = null;
+    this.visible = null;
   }
 
   path(end) {
@@ -41,8 +43,8 @@ class PackageList extends DependableList {
     return PackageListElement;
   }
 
-  createPackage(name, version, source) {
-    return new PackageListElement(name, version, source);
+  createPackage(name, version, visible, source) {
+    return new PackageListElement(name, version, visible, source);
   }
 
   packageNamed(name) {
