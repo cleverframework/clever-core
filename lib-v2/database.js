@@ -15,7 +15,8 @@ function connect(deferred) {
 
       // Require db models
       require('./models/setting');
-      require('./models/package')
+      require('./models/package');
+      require('./models/file');
 
       // Register database dependency
       self.database = database;

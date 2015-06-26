@@ -26,6 +26,7 @@ class CleverCore extends Container {
     waiters.push(require('./clever-config').bind(this));
     waiters.push(require('./database').bind(this));
     waiters.push(require('./clever-settings').bind(this));
+    waiters.push(require('./storage').bind(this));
     waiters.push(require('./discover').bind(this));
 
     this.waitersPromise = [];
