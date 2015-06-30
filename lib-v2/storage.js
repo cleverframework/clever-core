@@ -81,7 +81,7 @@ function connect(deferred) {
     strategy.volumeName = config.storage.volumeName;
 
     const storage = new Storage({
-      name: strategyName,
+      strategyName: strategyName,
       params: strategy
     });
 
