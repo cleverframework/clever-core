@@ -36,7 +36,7 @@ class Storage {
   }
   initVolume() {
     const defer = Q.defer();
-    this.fs.createBucket({Bucket: params.volumeName}, function(err, res) {
+    this.fs.createBucket({Bucket: this.volumeName}, function(err, res) {
       if(err) return defer.reject(err);
       defer.resolve();
     });
