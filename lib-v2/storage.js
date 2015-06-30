@@ -18,7 +18,7 @@ class Storage {
   constructor(params) {
     // TODO: aws implementation
 
-    this.strategyName = params.strategy;
+    this.strategyName = params.strategyName;
     this.volumeName = params.volumeName;
     this.fs = null;
 
