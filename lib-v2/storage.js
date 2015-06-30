@@ -15,17 +15,18 @@ const Q = require('q');
  */
 
 class Storage {
-  constructor(params) {
+  constructor(strategyName, volumeName, strategyParams) {
     // TODO: aws implementation
 
     this.strategyName = params.strategyName;
     this.volumeName = params.volumeName;
+    this.strategyParams = params.strategyParams;
     this.fs = null;
 
     switch(this.strategyName) {
       case 'local': {
         const LocalFS = require('fs-bindings').FS;
-        this.fs = new LocalFS(params.dir);
+        this.fs = new LocalFS(this.strategyParams.dir);
         break;
       }
       default: {
@@ -77,12 +78,12 @@ function connect(deferred) {
   this.resolve('config', 'database', function(config, database) {
 
     const strategyName = config.storage.strategy;
-    const strategy = config.storage.strategies[strategyName];
-    strategy.volumeName = config.storage.volumeName;
+    const strategyParams = config.storage.strategies[strategyName];
 
     const storage = new Storage({
       strategyName: strategyName,
-      params: strategy
+      strategy.volumeName: config.storage.volumeName,
+      strategyParams: strategyParams
     });
 
     // Register storage dependency
