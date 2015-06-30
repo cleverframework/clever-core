@@ -57,8 +57,10 @@ class Storage {
     });
     return defer.promise;
   }
-  editFile() {
-    // TODO
+  editFile(filename, fileData) {
+    // TODO: editFile edit the current file version
+    // while createFile, eventually create a new file version
+    return this.createFile(filename, fileData);
   }
   getFile(filename) {
     const defer = Q.defer();
