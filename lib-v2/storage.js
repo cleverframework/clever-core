@@ -78,7 +78,7 @@ function connect(deferred) {
   this.resolve('config', 'database', function(config, database) {
 
     const strategyName = config.storage.strategy;
-    const strategyName = config.storage.volumeName;
+    const volumeName = config.storage.volumeName;
     const strategyParams = config.storage.strategies[strategyName];
 
     const storage = new Storage(strategyName, volumeName, strategyParams);
