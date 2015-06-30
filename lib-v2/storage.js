@@ -26,7 +26,7 @@ class Storage {
     switch(this.strategyName) {
       case 'local': {
         const LocalFS = require('fs-bindings').FS;
-        this.fs = new LocalFS(this.strategyParams.dir);
+        this.fs = new LocalFS({ ootFolder: this.strategyParams.dir });
         break;
       }
       default: {
