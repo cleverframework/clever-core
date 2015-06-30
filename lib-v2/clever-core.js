@@ -65,6 +65,10 @@ class CleverCore extends Container {
     return this.settings;
   }
 
+  loadStorage() {
+    return this.storage;
+  }
+
   getClass() {
     return CleverCore;
   }

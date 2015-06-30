@@ -34,6 +34,7 @@
     "express": "^4.12.3",
     "express-session": "^1.10.4",
     "express-validator": "^2.9.0",
+    "fs-bindings": "git+ssh://git@github.com/JacopoDaeli/fs-bindings.git#development",
     "glob": "^5.0.3",
     "jade": "^1.9.2",
     "lazy-dependable": "^0.2.0",

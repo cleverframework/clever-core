@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose');
 const fs = require('fs');
-
+const Q = require('q');
 
 /*
  * CLEVER Storage, provides developers object storage. It's easy to use,
@@ -15,20 +15,58 @@ const fs = require('fs');
  */
 
 class Storage {
-  constructor(opts) {
-    this.strategy = opts;
-  }
-  createFile() {
+  constructor(params) {
+    // TODO: aws implementation
 
-  }
-  deleteFile() {
+    this.strategyName = params.strategy:
+    this.volumeName = params.volumeName;
+    this.fs = null;
 
+    switch(this.strategyName) {
+      case 'local': {
+        const LocalFS = require('fs-bindings').FS;
+        this.fs = new LocalFS(params.dir);
+        break;
+      }
+      default: {
+        throw new Error(`Storage: \`${this.strategyName}\` strategy implementation missing. Use \`local\` instead.`);
+      }
+    }
+  }
+  initVolume() {
+    const defer = Q.defer();
+    this.fs.createBucket({Bucket: params.volumeName}, function(err, res) {
+      if(err) return defer.reject(err);
+      defer.resolve();
+    });
+    return defer.promise;
+  }
+  createFile(filename, fileData) {
+    const defer = Q.defer();
+    this.fs.putObject(fileData, {Bucket: this.volumeName, Key: filename}, function(err, response) {
+      if(err) return defer.reject(err);
+      defer.resolve();
+    });
+    return defer.promise;
+  }
+  deleteFile(filename) {
+    const defer = Q.defer();
+    this.fs.deleteObject({Bucket: this.volumeName, Key: filename}, function(err, response) {
+      if(err) return defer.reject(err);
+      defer.resolve();
+    });
+    return defer.promise;
   }
   editFile() {
     // TODO
   }
-  getFile() {
-
+  getFile(filename) {
+    const defer = Q.defer();
+    this.fs.getObject({Bucket: this.volumeName, Key: filename}, function(err, obj) {
+      if(err) return defer.reject(err);
+      defer.resolve(obj.Body);
+    });
+    return defer.promise;
   }
 }
 
@@ -37,17 +75,22 @@ function connect(deferred) {
   this.resolve('config', 'database', function(config, database) {
 
     const strategyName = config.storage.strategy;
+    const strategy = config.storage.strategies[strategyName];
+    strategy.volumeName = config.storage.volumeName;
 
     const storage = new Storage({
       name: strategyName,
-      params: config.storage.strategies[strategyName]
+      params: strategy
     });
 
     // Register storage dependency
-    self.storage = storage;
-    self.register('storage', storage);
-    deferred.resolve();
-
+    storage.initVolume()
+      .then(function() {
+        self.storage = storage;
+        self.register('storage', storage);
+        deferred.resolve();
+      })
+      .catch(deferred.reject);
   })
 }
 
