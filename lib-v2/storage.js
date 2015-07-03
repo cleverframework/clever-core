@@ -27,6 +27,7 @@ class Storage {
       case 'local': {
         const LocalFS = require('fs-bindings').FS;
         this.fs = new LocalFS({ rootFolder: this.strategyParams.dir });
+        this.webServerUrl =
         break;
       }
       default: {
