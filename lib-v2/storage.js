@@ -3,6 +3,7 @@
 const mongoose = require('mongoose');
 const fs = require('fs');
 const Q = require('q');
+const mime = require('mime');
 
 /*
  * CLEVER Storage, provides developers object storage. It's easy to use,
@@ -15,20 +16,31 @@ const Q = require('q');
  */
 
 class Storage {
-  constructor(strategyName, volumeName, strategyParams) {
-    // TODO: aws implementation
+  constructor(app, strategyName, volumeName, strategyParams) {
+    const self = this;
 
     this.strategyName = strategyName;
     this.volumeName = volumeName;
     this.strategyParams = strategyParams;
     this.fs = null;
+    this.webServerUrl = null;
 
     switch(this.strategyName) {
       case 'local': {
         const LocalFS = require('fs-bindings').FS;
         this.fs = new LocalFS({ rootFolder: this.strategyParams.dir });
+        this.webServerUrl = `${app.config.app.url}/storage`;
+        app.get('/storage/:bucket/:key', function(req, res, next) {
+          // Ignore bucket for the moment
+          self.getFile(req.params.key)
+            .then(function(fileData) {
+              res.header('Content-Type', mime.lookup(req.params.key));
+              res.send(fileData);
+            });
+        });
         break;
       }
+      // TODO: aws implementation
       default: {
         throw new Error(`Storage: \`${this.strategyName}\` strategy implementation missing. Use \`local\` instead.`);
       }
@@ -75,13 +87,13 @@ class Storage {
 
 function connect(deferred) {
   const self = this;
-  this.resolve('config', 'database', function(config, database) {
+  this.resolve('config', 'database', 'app', function(config, database, app) {
 
     const strategyName = config.storage.strategy;
     const volumeName = config.storage.volumeName;
     const strategyParams = config.storage.strategies[strategyName];
 
-    const storage = new Storage(strategyName, volumeName, strategyParams);
+    const storage = new Storage(app, strategyName, volumeName, strategyParams);
 
     // Register storage dependency
     storage.initVolume()
