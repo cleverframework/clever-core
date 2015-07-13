@@ -69,11 +69,11 @@ class ServerEngine {
     this.app.use(cookieParser());
 
     // Request body parsing middleware should be above methodOverride
-    this.app.use(expressValidator({customValidators: {
+    this.app.use(expressValidator({ customValidators: {
       isArray: function(value) {
         return Array.isArray(value);
-      })
-    });
+      }
+    }});
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({
       extended: true
