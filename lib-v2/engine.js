@@ -73,7 +73,7 @@ class ServerEngine {
       isArray: function(value) {
         return Array.isArray(value);
       }
-    }});
+    }}));
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({
       extended: true
