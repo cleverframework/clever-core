@@ -1,4 +1,4 @@
-# [![CLEVER Logo](https://raw.githubusercontent.com/imperodesign/skeleton/master/app/assets/src/img/skeleton-logo.png?raw=true)](http://cleverframework.io/) Clever Framework's Core
+# [![CLEVER Logo](https://raw.githubusercontent.com/imperodesign/clever-system/development/assets/src/site/img/clever-logo.png)](http://cleverframework.io/) Clever Framework's Core
 
 Clever-core is a core package of the CLEVER project and is used primarily to manage packages for extending functionality.
 
