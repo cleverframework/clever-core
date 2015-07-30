@@ -17,8 +17,8 @@
     "url": "https://github.com/imperodesign/clever-core.git"
   },
   "engines": {
-    "iojs": "2.0.2",
-    "npm": "2.9.0"
+    "iojs": ">=2.0.2",
+    "npm": ">=2.9.0"
   },
   "scripts": {
     "pretest": "npm install",
