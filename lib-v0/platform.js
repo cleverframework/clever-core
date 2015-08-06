@@ -17,4 +17,6 @@ class Platform {
 
 }
 
-module.exports = new Platform();
+module.exports = function(CleverCore) {
+  CleverCore.prototype.platform = new Platform();
+};

@@ -8,4 +8,6 @@ class CleverRoute {
   }
 }
 
-module.exports = CleverRoute;
+module.exports = function(CleverCore) {
+  CleverCore.prototype.CleverRoute = CleverRoute;
+};
