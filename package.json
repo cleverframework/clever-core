@@ -1,7 +1,7 @@
 {
   "name": "clever-core",
   "description": "Clever-core is the core package of the CLEVER project. It's used to manage packages and extend functionality.",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "private": false,
   "author": "Jacopo Daeli <jacopo.daeli@gmail.com>",
   "contributors": "https://github.com/imperodesign/clever-core/graphs/contributors",
@@ -34,7 +34,7 @@
     "express": "^4.12.3",
     "express-session": "^1.10.4",
     "express-validator": "^2.9.0",
-    "fs-bindings": "git+ssh://git@github.com/JacopoDaeli/fs-bindings.git#development",
+    "fs-bindings": "0.0.3",
     "glob": "^5.0.3",
     "jade": "^1.9.2",
     "lazy-dependable": "^0.2.0",
