@@ -27,6 +27,5 @@ node_modules
 # Users Environment Variables
 .lock-wscript
 
-# Private Test
-private-test
-app
+# Development
+lib-v1
