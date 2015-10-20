@@ -36,7 +36,10 @@
     "lodash": "^3.10.1",
     "method-override": "^2.3.5",
     "passport": "^0.3.0",
-    "q": "^1.4.1"
+    "pg": "^4.4.3",
+    "pg-hstore": "^2.3.2",
+    "q": "^1.4.1",
+    "sequelize": "^3.12.2"
   },
   "devDependencies": {},
   "license": "MIT"
