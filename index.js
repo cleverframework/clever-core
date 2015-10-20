@@ -2,4 +2,4 @@
 
 const CleverCore = require('./lib/clever-core');
 
-module.exports = CleverCore.getInstance();
+module.exports = CleverCore.getInstance()
