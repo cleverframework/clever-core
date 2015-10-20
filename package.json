@@ -5,7 +5,7 @@
   "private": false,
   "author": "Jacopo Daeli <jacopo.daeli@gmail.com>",
   "contributors": "https://github.com/imperodesign/clever-core/graphs/contributors",
-  "clever": "0.0.2",
+  "clever": "0.1.0",
   "keywords": [
     "clever",
     "clever-core"
@@ -16,8 +16,8 @@
     "url": "https://github.com/imperodesign/clever-core.git"
   },
   "engines": {
-    "iojs": ">=4.1.2",
-    "npm": ">=2.14.4"
+    "node": ">=4.0.0",
+    "npm": ">=2.14.2"
   },
   "scripts": {
     "pretest": "npm install",
