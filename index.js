@@ -1,5 +1,5 @@
-'use strict';
+'use strict'
 
-const CleverCore = require('./lib/clever-core');
+const CleverCore = require('./lib/clever-core')
 
 module.exports = CleverCore.getInstance()
